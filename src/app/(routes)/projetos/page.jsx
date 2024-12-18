@@ -38,7 +38,7 @@ export default function Projetos() {
           Projetos
         </h1>
         <p className="text-zinc-400 mb-8">
-          Uma seleção dos meus projetos mais recentes e relevantes.
+          Uma seleção dos meus projetos mais recentes e relevantes...
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
