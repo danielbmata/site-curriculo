@@ -53,10 +53,10 @@ export default function Projetos() {
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              {/* Efeito de gradiente no hover */}
+              {/* Esse efeito de gradiente no hover foi difícil mas ficou top */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
-              {/* Badge de destaque */}
+              {/* Badge pra destacar os projetos mais legais que fiz */}
               {project.featured && (
                 <div className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full p-2 shadow-lg">
                   <Star className="w-4 h-4 text-white" />
@@ -67,7 +67,7 @@ export default function Projetos() {
                 <h3 className="text-xl font-semibold text-zinc-100 mb-2">{project.title}</h3>
                 <p className="text-zinc-400 text-sm mb-4">{project.description}</p>
 
-                {/* Tags */}
+                {/* Tags das tecnologias que usei, ajuda o pessoal a entender melhor */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, tagIndex) => (
                     <span
@@ -79,7 +79,7 @@ export default function Projetos() {
                   ))}
                 </div>
 
-                {/* Links */}
+                {/* Links pro github e demo, quando tiver */}
                 <div className="flex gap-4">
                   <a
                     href={project.github}

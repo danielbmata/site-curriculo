@@ -27,18 +27,18 @@ export default function Inicio() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Seção principal, tentei fazer algo bem chamativo */}
       <div className="relative h-[40vh] min-h-[400px] flex items-center justify-center overflow-hidden">
-        {/* Background com gradiente animado */}
+        {/* Esse background com gradiente deu trabalho mas valeu a pena */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 animate-gradient-x" />
         
-        {/* Elementos decorativos */}
+        {/* Elementos decorativos pra dar aquele toque especial */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl" />
         </div>
 
-        {/* Conteúdo do Hero */}
+        {/* Aqui é a parte principal com minha apresentação */}
         <div className="relative text-center px-6 animate-fadeIn">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
             Daniel Mata
@@ -47,7 +47,7 @@ export default function Inicio() {
             Transformando ideias em experiências digitais memoráveis através de código limpo e design moderno.
           </p>
           
-          {/* Botões de ação */}
+          {/* Botões pra galera entrar em contato, bem clean */}
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/contato"
@@ -78,7 +78,7 @@ export default function Inicio() {
         </div>
       </div>
 
-      {/* Highlights Section */}
+      {/* Seção de highlights - mostro minhas principais skills */}
       <div className="max-w-6xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {highlights.map((item, index) => {
@@ -94,7 +94,7 @@ export default function Inicio() {
                 onMouseEnter={() => setHoveredSection(index)}
                 onMouseLeave={() => setHoveredSection(null)}
               >
-                {/* Efeito de gradiente no hover */}
+                {/* Efeito maneiro quando passa o mouse em cima */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 <div className="relative">

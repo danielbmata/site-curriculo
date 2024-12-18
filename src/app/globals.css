@@ -32,7 +32,7 @@
   }
 }
 
-/* Scrollbar personalizado */
+/* Customizei a scrollbar pq a padrão é mt feia  */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -50,7 +50,7 @@
   background: #52525b;
 }
 
-/* Melhorias de fonte e suavização */
+/* Aprendi isso num vídeo, deixa as fontes mais suaves */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
