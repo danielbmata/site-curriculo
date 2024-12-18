@@ -9,7 +9,7 @@ const experiences = [
     title: 'Falta add',
     company: 'Falta add',
     period: 'Jan 2023 - Presente',
-    description: 'Desenvolvimento de soluções web escaláveis utilizando React, Node.js e AWS. Liderança técnica de equipe e mentoria de desenvolvedores júnior.',
+    description: 'Falta add',
     skills: ['React', 'Node.js', 'AWS', 'MongoDB', 'TypeScript'],
   },
   {
@@ -17,8 +17,8 @@ const experiences = [
     title: 'Falta add',
     company: 'Falta add',
     period: 'Jun 2021 - Dez 2022',
-    description: 'Desenvolvimento de aplicações web e APIs RESTful. Implementação de CI/CD e práticas de DevOps.',
-    skills: ['Vue.js', 'Python', 'Docker', 'PostgreSQL'],
+    description: 'Falta add.',
+    skills: [ 'Python', 'Docker', 'PostgreSQL'],
   },
   {
     type: 'education',
