@@ -103,6 +103,9 @@ export function Sidebar() {
           <NavLink href="/experiencia" icon={Briefcase}>
             Experiência
           </NavLink>
+          <NavLink href="/ferramentas" icon={Wrench}>
+            Ferramentas
+          </NavLink>
           <NavLink href="/contato" icon={Contact}>
             Contato
           </NavLink>
