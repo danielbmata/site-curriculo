@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
 
 export default function Ferramentas() {
@@ -9,6 +9,58 @@ export default function Ferramentas() {
   const [resultado, setResultado] = useState(null);
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState('');
+  const [sugestoes, setSugestoes] = useState([]);
+  const [mostrarSugestoes, setMostrarSugestoes] = useState(false);
+  const sugestoesRef = useRef(null);
+
+  // Fecha as sugestões quando clicar fora
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (sugestoesRef.current && !sugestoesRef.current.contains(event.target)) {
+        setMostrarSugestoes(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Busca sugestões quando o usuário digita
+  useEffect(() => {
+    const buscarSugestoes = async () => {
+      if (ticket.length < 2) {
+        setSugestoes([]);
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/fii?action=search&query=${ticket}`);
+        const data = await response.json();
+        setSugestoes(data);
+        setMostrarSugestoes(true);
+      } catch (error) {
+        console.error('Erro ao buscar sugestões:', error);
+      }
+    };
+
+    const timeoutId = setTimeout(buscarSugestoes, 300);
+    return () => clearTimeout(timeoutId);
+  }, [ticket]);
+
+  const validarEntradas = () => {
+    if (!ticket) {
+      setErro('Por favor, insira o código do FII.');
+      return false;
+    }
+
+    const rendimento = parseFloat(rendimentoDesejado);
+    if (isNaN(rendimento) || rendimento <= 0) {
+      setErro('Por favor, insira um valor válido para o rendimento mensal desejado.');
+      return false;
+    }
+
+    return true;
+  };
 
   async function calcularNumeroMagico(e) {
     e.preventDefault();
@@ -16,25 +68,42 @@ export default function Ferramentas() {
     setErro('');
     setResultado(null);
 
+    if (!validarEntradas()) {
+      setLoading(false);
+      return;
+    }
+
     try {
-      // Adiciona o sufixo .SA para buscar na B3
-      const ticketFormatado = `${ticket.toUpperCase()}.SA`;
-      
-      // Busca dados do Yahoo Finance
-      const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticketFormatado}`);
+      const response = await fetch(`/api/fii?action=quote&ticker=${ticket}`);
       const data = await response.json();
 
       if (data.error) {
-        throw new Error('FII não encontrado');
+        throw new Error(data.error);
       }
 
-      const cotacaoAtual = data.chart.result[0].meta.regularMarketPrice;
-      const dividendYield = data.chart.result[0].meta.trailingAnnualDividendYield * 100; // Convertendo para porcentagem
+      if (!data.success || !data.data) {
+        throw new Error('Dados inválidos recebidos da API');
+      }
+
+      const { cotacaoAtual, dividendYield } = data.data;
+      
+      // Converter rendimento para número
+      const rendimentoMensal = parseFloat(rendimentoDesejado);
+      const rendimentoAnual = rendimentoMensal * 12;
+
+      // Validar dados antes do cálculo
+      if (dividendYield <= 0) {
+        throw new Error('Dividend Yield inválido para este FII');
+      }
 
       // Cálculo do número mágico
-      const rendimentoAnual = rendimentoDesejado * 12;
       const cotasNecessarias = Math.ceil(rendimentoAnual / (cotacaoAtual * (dividendYield / 100)));
       const investimentoTotal = cotasNecessarias * cotacaoAtual;
+
+      // Validar resultado
+      if (isNaN(cotasNecessarias) || isNaN(investimentoTotal)) {
+        throw new Error('Erro no cálculo. Por favor, verifique os valores inseridos.');
+      }
 
       setResultado({
         cotas: cotasNecessarias,
@@ -43,11 +112,20 @@ export default function Ferramentas() {
         dividendYield: dividendYield.toFixed(2)
       });
     } catch (error) {
-      setErro('Erro ao buscar dados do FII. Verifique o código e tente novamente.');
+      console.error('Erro no cálculo:', error);
+      setErro(error.message || 'Erro ao calcular. Verifique os dados e tente novamente.');
     } finally {
       setLoading(false);
     }
   }
+
+  const handleRendimentoChange = (e) => {
+    const value = e.target.value;
+    // Permitir apenas números e ponto decimal
+    if (value === '' || /^\d*\.?\d*$/.test(value)) {
+      setRendimentoDesejado(value);
+    }
+  };
 
   return (
     <main className="flex-1 p-8 max-w-4xl mx-auto">
@@ -63,7 +141,7 @@ export default function Ferramentas() {
 
         <form onSubmit={calcularNumeroMagico} className="space-y-4">
           <div className="space-y-4">
-            <div>
+            <div className="relative">
               <label htmlFor="ticket" className="block text-sm font-medium text-zinc-300 mb-2">
                 Código do FII
               </label>
@@ -71,11 +149,35 @@ export default function Ferramentas() {
                 type="text"
                 id="ticket"
                 value={ticket}
-                onChange={(e) => setTicket(e.target.value)}
+                onChange={(e) => setTicket(e.target.value.toUpperCase())}
+                onFocus={() => setMostrarSugestoes(true)}
                 placeholder="Ex: MXRF11"
                 className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700/50 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
                 required
+                maxLength={6}
+                pattern="[A-Z0-9]+"
               />
+              
+              {mostrarSugestoes && sugestoes.length > 0 && (
+                <div
+                  ref={sugestoesRef}
+                  className="absolute z-10 w-full mt-1 bg-zinc-800 border border-zinc-700/50 rounded-xl shadow-lg max-h-60 overflow-auto"
+                >
+                  {sugestoes.map((sugestao) => (
+                    <button
+                      key={sugestao}
+                      type="button"
+                      onClick={() => {
+                        setTicket(sugestao);
+                        setMostrarSugestoes(false);
+                      }}
+                      className="w-full px-4 py-2 text-left text-zinc-100 hover:bg-zinc-700/50 transition-colors"
+                    >
+                      {sugestao}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div>
@@ -83,15 +185,14 @@ export default function Ferramentas() {
                 Rendimento Mensal Desejado (R$)
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 id="rendimento"
                 value={rendimentoDesejado}
-                onChange={(e) => setRendimentoDesejado(e.target.value)}
+                onChange={handleRendimentoChange}
                 placeholder="Ex: 1000"
                 className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700/50 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
                 required
-                min="0"
-                step="0.01"
               />
             </div>
           </div>
@@ -124,15 +225,25 @@ export default function Ferramentas() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
                 <p className="text-sm text-zinc-400">Cotas Necessárias</p>
-                <p className="text-2xl font-bold text-zinc-100">{resultado.cotas}</p>
+                <p className="text-2xl font-bold text-zinc-100">{resultado.cotas.toLocaleString('pt-BR')}</p>
               </div>
               <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
                 <p className="text-sm text-zinc-400">Investimento Total</p>
-                <p className="text-2xl font-bold text-zinc-100">R$ {resultado.investimentoTotal}</p>
+                <p className="text-2xl font-bold text-zinc-100">
+                  {parseFloat(resultado.investimentoTotal).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  })}
+                </p>
               </div>
               <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
                 <p className="text-sm text-zinc-400">Cotação Atual</p>
-                <p className="text-2xl font-bold text-zinc-100">R$ {resultado.cotacaoAtual}</p>
+                <p className="text-2xl font-bold text-zinc-100">
+                  {parseFloat(resultado.cotacaoAtual).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  })}
+                </p>
               </div>
               <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50">
                 <p className="text-sm text-zinc-400">Dividend Yield Anual</p>
