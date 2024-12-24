@@ -5,11 +5,19 @@ import { Github, ExternalLink, Star } from 'lucide-react';
 
 const projects = [
   {
+    title: 'Calculadora do Número Mágico - FIIs',
+    description: 'Uma ferramenta para calcular quantas cotas de um FII você precisa para atingir sua renda passiva desejada.',
+    tags: ['React', 'Next.js', 'Tailwind CSS'],
+    github: 'https://github.com/seu-usuario/calculadora-fii',
+    demo: '/ferramentas',
+    featured: true,
+  },
+  {
     title: 'Falta add',
     description: 'Falta add',
     tags: ['Next.js', 'React', 'Tailwind CSS'],
     github: 'https://github.com/seu-usuario/portfolio',
-    demo: 'https://seu-portfolio.com',
+    demo: '/ferramentas/falta-add',
     featured: true,
   },
   {
@@ -35,10 +43,10 @@ export default function Projetos() {
     <div className="min-h-screen p-8 animate-fadeIn">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-          Projetos
+          Ferramentas
         </h1>
         <p className="text-zinc-400 mb-8">
-          Uma seleção dos meus projetos mais recentes e relevantes...
+          Uma seleção das minhas ferramentas mais úteis...
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -53,21 +61,15 @@ export default function Projetos() {
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              {/* Esse efeito de gradiente no hover foi difícil mas ficou top */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-              {/* Badge pra destacar os projetos mais legais que fiz */}
               {project.featured && (
                 <div className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full p-2 shadow-lg">
                   <Star className="w-4 h-4 text-white" />
                 </div>
               )}
-
               <div className="relative">
                 <h3 className="text-xl font-semibold text-zinc-100 mb-2">{project.title}</h3>
                 <p className="text-zinc-400 text-sm mb-4">{project.description}</p>
-
-                {/* Tags das tecnologias que usei, ajuda o pessoal a entender melhor */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, tagIndex) => (
                     <span
@@ -78,8 +80,6 @@ export default function Projetos() {
                     </span>
                   ))}
                 </div>
-
-                {/* Links pro github e demo, quando tiver */}
                 <div className="flex gap-4">
                   <a
                     href={project.github}
@@ -93,8 +93,6 @@ export default function Projetos() {
                   {project.demo && (
                     <a
                       href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
