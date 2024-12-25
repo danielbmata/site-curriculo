@@ -94,18 +94,12 @@ export function Sidebar() {
         </div>
 
         <nav className="space-y-2">
-          <NavLink href="/inicio" icon={Home}>
-            Início
-          </NavLink>
-          <NavLink href="/projetos" icon={Code2}>
-            Ferramentas
-          </NavLink>
-          <NavLink href="/experiencia" icon={Briefcase}>
-            Experiência
-          </NavLink>
-          <NavLink href="/contato" icon={Contact}>
-            Contato
-          </NavLink>
+          <NavLink href="/inicio" icon={Home}>Início</NavLink>
+          <NavLink href="/projetos" icon={Code2}>Ferramentas</NavLink>
+          <NavLink href="/experiencia" icon={Briefcase}>Experiência</NavLink>
+          <NavLink href="/contato" icon={Contact}>Contato</NavLink>
+          <NavLink href="/login" icon={User2}>Login</NavLink>
+          <NavLink href="/register" icon={User2}>Registrar</NavLink>
         </nav>
 
         <div className="absolute bottom-6 left-6 right-6">

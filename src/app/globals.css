@@ -12,7 +12,8 @@
   }
 
   @keyframes gradient-x {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
@@ -21,6 +22,9 @@
   }
 }
 
+/*O fadeIn efeito efeito de animação que faz com que o elemento se move
+ para cima e depois para baixo, dando o efeito de aparecer do topo para o meio.
+*/
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -59,4 +63,3 @@ body {
 .glass-effect {
   @apply backdrop-blur-lg bg-zinc-950/80 border border-zinc-800/50;
 }
-

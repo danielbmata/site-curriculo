@@ -20,6 +20,7 @@ const highlights = [
     title: 'Disponível para Projetos',
     description: 'Aberto a novos desafios e oportunidades de colaboração',
   },
+  // o highlights é uma função que retorna um array de objetos, cada objeto tem um icon, title e description
 ];
 
 export default function Inicio() {
