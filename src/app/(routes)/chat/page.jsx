@@ -4,32 +4,69 @@ import { useState, useEffect } from 'react';
 import { Send, User2, Bot } from 'lucide-react';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
+
+  // Inicializa o Gemini
+  const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
+
+  // Função para gerar resposta do Gemini
+  const generateGeminiResponse = async (prompt) => {
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
+  };
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!inputMessage.trim() || isLoading) return;
+
+    const userMessage = {
+      text: inputMessage,
+      sender: 'user',
+      timestamp: new Date().toISOString()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInputMessage('');
+    setIsLoading(true);
+
+    try {
+      // Obtém resposta do Gemini
+      const aiResponse = await generateGeminiResponse(inputMessage);
+      
+      const botMessage = {
+        text: aiResponse,
+        sender: 'bot',
+        timestamp: new Date().toISOString()
+      };
+
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      console.error('Erro ao gerar resposta:', error);
+      const errorMessage = {
+        text: "Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente mais tarde.",
+        sender: 'bot',
+        timestamp: new Date().toISOString()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!user) {
       router.push('/login?message=Você precisa estar logado para acessar o chat');
     }
   }, [user, router]);
-
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (!inputMessage.trim()) return;
-
-    const newMessage = {
-      text: inputMessage,
-      sender: 'user',
-      timestamp: new Date().toISOString()
-    };
-
-    setMessages([...messages, newMessage]);
-    setInputMessage('');
-  };
 
   if (!user) {
     return null; // Não renderiza nada enquanto redireciona
@@ -83,10 +120,14 @@ export default function Chat() {
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Digite sua mensagem..."
               className="flex-1 bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-2 text-zinc-200 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              disabled={isLoading}
             />
             <button
               type="submit"
-              className="p-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:opacity-90 transition-opacity"
+              className={`p-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white transition-opacity ${
+                isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
+              }`}
+              disabled={isLoading}
             >
               <Send className="w-5 h-5" />
             </button>
