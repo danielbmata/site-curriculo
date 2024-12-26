@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     domains: ['firebasestorage.googleapis.com']
   },
-  output: 'standalone',
+  output: 'export',
   experimental: {
     serverActions: true
   }

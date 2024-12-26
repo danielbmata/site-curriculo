@@ -5,8 +5,9 @@ import { Send, User2, Bot } from 'lucide-react';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import dynamic from 'next/dynamic';
 
-export default function Chat() {
+const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -136,4 +137,9 @@ export default function Chat() {
       </div>
     </div>
   );
-} 
+}
+
+// Exporta o componente com dynamic import e ssr desabilitado
+export default dynamic(() => Promise.resolve(Chat), {
+  ssr: false
+}); 

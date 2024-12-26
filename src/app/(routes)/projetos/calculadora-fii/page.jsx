@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
 // Página da calculadora - minha primeira ferramenta "séria"!
-export default function CalculadoraFII() {
+const CalculadoraFII = () => {
   const [ticket, setTicket] = useState('');
   const [rendimentoDesejado, setRendimentoDesejado] = useState('');
   const [resultado, setResultado] = useState(null);
@@ -256,4 +257,9 @@ export default function CalculadoraFII() {
       </div>
     </main>
   );
-} 
+}
+
+// Exporta o componente com dynamic import e ssr desabilitado
+export default dynamic(() => Promise.resolve(CalculadoraFII), {
+  ssr: false
+}); 
