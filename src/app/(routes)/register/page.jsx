@@ -4,19 +4,42 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { auth } from '../../../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const router = useRouter();
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        setError('');
+        setSuccess('');
+        
         try {
             await createUserWithEmailAndPassword(auth, email, password);
-            // Redirecionar ou mostrar mensagem de sucesso
+            router.push('/ferramentas');
         } catch (error) {
-            setError(error.message);
+            let mensagem = '';
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    mensagem = 'Este email já está em uso.';
+                    break;
+                case 'auth/invalid-email':
+                    mensagem = 'Email inválido.';
+                    break;
+                case 'auth/operation-not-allowed':
+                    mensagem = 'Operação não permitida.';
+                    break;
+                case 'auth/weak-password':
+                    mensagem = 'A senha deve ter pelo menos 6 caracteres.';
+                    break;
+                default:
+                    mensagem = 'Ocorreu um erro ao criar a conta.';
+            }
+            setError(mensagem);
         }
     };
 

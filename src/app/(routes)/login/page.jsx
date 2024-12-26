@@ -1,22 +1,41 @@
- "use client"
+"use client"
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { auth } from '../../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../firebase';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const router = useRouter();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            // Redirecionar ou mostrar mensagem de sucesso
+            router.push('/ferramentas');
         } catch (error) {
-            setError(error.message);
+            let mensagem = '';
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    mensagem = 'Email inválido.';
+                    break;
+                case 'auth/user-disabled':
+                    mensagem = 'Usuário desabilitado.';
+                    break;
+                case 'auth/user-not-found':
+                    mensagem = 'Usuário não encontrado.';
+                    break;
+                case 'auth/wrong-password':
+                    mensagem = 'Senha incorreta.';
+                    break;
+                default:
+                    mensagem = 'Ocorreu um erro ao fazer login.';
+            }
+            setError(mensagem);
         }
     };
 

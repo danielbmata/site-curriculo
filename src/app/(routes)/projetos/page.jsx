@@ -3,73 +3,65 @@
 import { useState } from 'react';
 import { Github, ExternalLink, Star } from 'lucide-react';
 
+// Array com meus projetos - depois vou adicionar mais quando terminar eles
+// To usando featured: true pros projetos que são mais legais
 const projects = [
   {
     title: 'Calculadora do Número Mágico - FIIs',
     description: 'Uma ferramenta para calcular quantas cotas de um FII você precisa para atingir sua renda passiva desejada.',
-    tags: ['React', 'Next.js', 'Tailwind CSS'],
-    github: 'https://github.com/seu-usuario/calculadora-fii',
+    tags: ['React', 'Next.js', 'Tailwind CSS'], // Tecnologias que aprendi fazendo o projeto
+    github: 'https://github.com/danielbmata/calculadora-fii',
     demo: '/ferramentas',
-    featured: true,
+    featured: true, // Meu primeiro projeto "sério" com React!
   },
-  {
-    title: 'Falta add',
-    description: 'Falta add',
-    tags: ['Next.js', 'React', 'Tailwind CSS'],
-    github: 'https://github.com/seu-usuario/portfolio',
-    demo: '/ferramentas/falta-add',
-    featured: true,
-  },
-  {
-    title: 'Falta add',
-    description: 'Falta add',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    github: 'https://github.com/seu-usuario/ecommerce-dashboard',
-    featured: true,
-  },
-  {
-    title: 'Falta add',
-    description: 'Falta add',
-    tags: ['Node.js', 'Express', 'MongoDB'],
-    github: 'https://github.com/seu-usuario/api-restful',
-    featured: false,
-  },
+  // ... outros projetos que vou adicionar depois
 ];
 
+// Página de projetos - to usando bastante os componentes do Lucide, são muito bons!
 export default function Projetos() {
+  // Estado pro hover - ainda to aprendendo a usar direito o useState
   const [hoveredProject, setHoveredProject] = useState(null);
 
   return (
     <div className="min-h-screen p-8 animate-fadeIn">
       <div className="max-w-6xl mx-auto">
+        {/* Cabeçalho com gradiente - copiei da página inicial porque ficou bonito */}
         <h1 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-          Ferramentas
+          Projetos
         </h1>
-        <p className="text-zinc-400 mb-8">
-          Uma seleção das minhas ferramentas mais úteis...
+        <p className="text-zinc-400 mb-12">
+          Alguns dos projetos que desenvolvi durante minha jornada de aprendizado.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Grid de projetos - primeiro uso do grid no Tailwind! */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, index) => (
             <div
               key={index}
               className={`
-                relative group p-6 rounded-2xl transition-all duration-300
+                relative p-6 rounded-2xl transition-all duration-300
                 ${hoveredProject === index ? 'scale-105' : 'scale-100'}
                 glass-effect hover:border-zinc-700/50
               `}
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
             >
+              {/* Efeito de hover que aprendi vendo o site da Vercel */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              {/* Estrela pros projetos featured - achei legal destacar os melhores */}
               {project.featured && (
                 <div className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full p-2 shadow-lg">
                   <Star className="w-4 h-4 text-white" />
                 </div>
               )}
+
+              {/* Resto do conteúdo do card */}
               <div className="relative">
                 <h3 className="text-xl font-semibold text-zinc-100 mb-2">{project.title}</h3>
                 <p className="text-zinc-400 text-sm mb-4">{project.description}</p>
+                
+                {/* Tags das tecnologias - adoro esse estilo de badge */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, tagIndex) => (
                     <span
@@ -80,6 +72,8 @@ export default function Projetos() {
                     </span>
                   ))}
                 </div>
+
+                {/* Links - aprendi a usar target="_blank" com rel="noopener" por segurança */}
                 <div className="flex gap-4">
                   <a
                     href={project.github}

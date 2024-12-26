@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { RootLayoutClient } from '../components/RootLayoutClient'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -9,9 +10,5 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="pt-BR">
-      <body className="bg-zinc-900 text-zinc-50">{children}</body>
-    </html>
-  )
+  return <RootLayoutClient>{children}</RootLayoutClient>;
 }
