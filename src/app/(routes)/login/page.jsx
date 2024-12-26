@@ -1,17 +1,15 @@
-"use client"
+ "use client"
 
 import { useState } from 'react';
 import Link from 'next/link';
 import { auth } from '../../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    // Para login
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -23,29 +21,71 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen p-8">
-            <h1 className="text-4xl font-bold">Login</h1>
-            <form onSubmit={handleLogin} className="space-y-4">
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="input-class"
-                />
-                <input
-                    type="password"
-                    placeholder="Senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="input-class"
-                />
-                {error && <p className="text-red-500">{error}</p>}
-                <button type="submit" className="button-class">Entrar</button>
-            </form>
-            <Link href="/register">Não tem uma conta? Registre-se aqui.</Link>
+        <div className="min-h-screen p-8 animate-fadeIn">
+            <div className="max-w-md mx-auto">
+                <h1 className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                    Login
+                </h1>
+                <p className="text-zinc-400 mb-8">
+                    Entre com suas credenciais para acessar sua conta.
+                </p>
+
+                <div className="p-6 rounded-2xl glass-effect border border-zinc-800/50">
+                    <form onSubmit={handleLogin} className="space-y-6">
+                        <div className="space-y-2">
+                            <label htmlFor="email" className="block text-sm font-medium text-zinc-300">
+                                Email
+                            </label>
+                            <input
+                                id="email"
+                                type="email"
+                                placeholder="seu@email.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700/50 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <label htmlFor="password" className="block text-sm font-medium text-zinc-300">
+                                Senha
+                            </label>
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 rounded-xl bg-zinc-800/50 border border-zinc-700/50 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50"
+                            />
+                        </div>
+
+                        {error && (
+                            <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-400">
+                                {error}
+                            </div>
+                        )}
+
+                        <button
+                            type="submit"
+                            className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium transition-all duration-300 hover:brightness-110"
+                        >
+                            Entrar
+                        </button>
+                    </form>
+                </div>
+
+                <div className="mt-6 text-center">
+                    <Link
+                        href="/register"
+                        className="text-zinc-400 hover:text-zinc-300 transition-colors"
+                    >
+                        Não tem uma conta? <span className="text-blue-400 hover:text-blue-300">Registre-se aqui</span>
+                    </Link>
+                </div>
+            </div>
         </div>
     );
-} 
+}
