@@ -1,16 +1,25 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const urlMessage = searchParams.get('message');
+        if (urlMessage) {
+            setMessage(urlMessage);
+        }
+    }, [searchParams]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -50,6 +59,12 @@ export default function Login() {
                 </p>
 
                 <div className="p-6 rounded-2xl glass-effect border border-zinc-800/50">
+                    {message && (
+                        <div className="mb-6 p-4 rounded-xl bg-blue-500/10 border border-blue-500/50 text-blue-400">
+                            {message}
+                        </div>
+                    )}
+
                     <form onSubmit={handleLogin} className="space-y-6">
                         <div className="space-y-2">
                             <label htmlFor="email" className="block text-sm font-medium text-zinc-300">

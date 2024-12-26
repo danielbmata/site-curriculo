@@ -1,11 +1,21 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Send, User2, Bot } from 'lucide-react';
+import { useAuth } from '../../../contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login?message=Você precisa estar logado para acessar o chat');
+    }
+  }, [user, router]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -20,6 +30,10 @@ export default function Chat() {
     setMessages([...messages, newMessage]);
     setInputMessage('');
   };
+
+  if (!user) {
+    return null; // Não renderiza nada enquanto redireciona
+  }
 
   return (
     <div className="min-h-screen p-8 animate-fadeIn">
