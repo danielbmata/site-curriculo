@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
-import { ProtectedRoute } from '../../../components/ProtectedRoute';
+import { ProtectedRoute } from '../../../../components/ProtectedRoute';
 
 // Página da calculadora - minha primeira ferramenta "séria"!
-export default function Ferramentas() {
+export default function CalculadoraFII() {
   const [ticket, setTicket] = useState('');
   const [rendimentoDesejado, setRendimentoDesejado] = useState('');
   const [resultado, setResultado] = useState(null);

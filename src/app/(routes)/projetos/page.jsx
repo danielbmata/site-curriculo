@@ -11,7 +11,7 @@ const projects = [
     description: 'Uma ferramenta para calcular quantas cotas de um FII você precisa para atingir sua renda passiva desejada.',
     tags: ['React', 'Next.js', 'Tailwind CSS'], // Tecnologias que aprendi fazendo o projeto
     github: 'https://github.com/danielbmata/calculadora-fii',
-    demo: '/ferramentas',
+    demo: '/projetos/calculadora-fii',
     featured: true, // Meu primeiro projeto "sério" com React!
   },
   // ... outros projetos que vou adicionar depois
