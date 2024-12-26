@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, Wrench, Contact, Menu, X, User2, Code2, Briefcase, LogOut, Award } from 'lucide-react';
+import { Home, Wrench, Contact, Menu, X, User2, Code2, Briefcase, LogOut, Award, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -112,6 +112,7 @@ export function Sidebar() {
           <NavLink href="/projetos" icon={Code2}>Projetos</NavLink>
           <NavLink href="/experiencia" icon={Briefcase}>Experiência</NavLink>
           <NavLink href="/certificados" icon={Award}>Certificados</NavLink>
+          <NavLink href="/chat" icon={MessageSquare}>Chat</NavLink>
           <NavLink href="/contato" icon={Contact}>Contato</NavLink>
           {user ? (
             <>
