@@ -1,14 +1,28 @@
 "use client"
 
-import { Home, Wrench, Contact, Menu, X, User2, Code2, Briefcase } from 'lucide-react';
+import { Home, Wrench, Contact, Menu, X, User2, Code2, Briefcase, LogOut } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
 
 export function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredLink, setHoveredLink] = useState(null);
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login');
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
+  };
   
   // Fecha o menu quando mudar de página em telas pequenas
   useEffect(() => {
@@ -95,11 +109,29 @@ export function Sidebar() {
 
         <nav className="space-y-2">
           <NavLink href="/inicio" icon={Home}>Início</NavLink>
-          <NavLink href="/projetos" icon={Code2}>Ferramentas</NavLink>
+          <NavLink href="/projetos" icon={Code2}>Projetos</NavLink>
+          <NavLink href="/ferramentas" icon={Wrench}>Ferramentas</NavLink>
           <NavLink href="/experiencia" icon={Briefcase}>Experiência</NavLink>
           <NavLink href="/contato" icon={Contact}>Contato</NavLink>
-          <NavLink href="/login" icon={User2}>Login</NavLink>
-          <NavLink href="/register" icon={User2}>Registrar</NavLink>
+          {user ? (
+            <>
+              <NavLink href="/perfil" icon={User2}>Perfil</NavLink>
+              <button
+                onClick={handleSignOut}
+                className="w-full group relative flex items-center gap-3 rounded-xl p-3 text-sm font-medium transition-all duration-300 ease-out text-zinc-400 hover:text-zinc-100"
+              >
+                <div className="relative flex items-center justify-center transition-all duration-300 text-zinc-400 group-hover:text-purple-400">
+                  <LogOut className="w-5 h-5 relative z-10" />
+                </div>
+                <span>Sair</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink href="/login" icon={User2}>Login</NavLink>
+              <NavLink href="/register" icon={User2}>Registrar</NavLink>
+            </>
+          )}
         </nav>
 
         <div className="absolute bottom-6 left-6 right-6">
