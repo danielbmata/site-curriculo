@@ -6,26 +6,26 @@ import { Building2, GraduationCap, Calendar } from 'lucide-react';
 const experiences = [
   {
     type: 'work',
-    title: 'Falta add',
-    company: 'Falta add',
-    period: 'Jan 2023 - Presente',
-    description: 'Falta add',
-    skills: ['React', 'Node.js', 'AWS', 'MongoDB', 'TypeScript'],
+    title: 'Técnico de TI (Estágio)',
+    company: 'Santa Casa de Misericórdia de Poções - Hospital São Lucas',
+    period: 'Mai 2023 - Nov 2023',
+    description: 'Atuei no suporte e desenvolvimento da infraestrutura tecnológica hospitalar, com foco em:\n\n• Gerenciamento de redes de computadores e impressoras\n• Suporte técnico especializado aos colaboradores\n• Desenvolvimento de soluções web para otimização de processos\n• Administração e manutenção de bancos de dados\n• Gestão do sistema hospitalar integrado\n• Resolução proativa de problemas técnicos\n• Capacitação e treinamento da equipe em novas tecnologias',
+    skills: ['Gerenciamento de Rede', 'Suporte Técnico', 'Desenvolvimento Web', 'Banco de Dados', 'Administração de Sistemas', 'Treinamento'],
   },
   {
     type: 'work',
-    title: 'Falta add',
-    company: 'Falta add',
-    period: 'Jun 2021 - Dez 2022',
-    description: 'Falta add.',
-    skills: [ 'Python', 'Docker', 'PostgreSQL'],
+    title: 'Técnico de Redes',
+    company: 'Koala Telecom',
+    period: 'Jan 2020 - Mar 2021',
+    description: 'Responsável pela implementação e manutenção de infraestrutura de rede, com foco em:\n\n• Manutenção preventiva e corretiva de computadores\n• Instalação e configuração de internet banda larga para clientes residenciais e empresariais\n• Implementação e manutenção de sistemas de segurança CFTV\n\nContribuí diretamente para a expansão da base de clientes e melhoria da qualidade do serviço prestado.',
+    skills: ['Instalação de Redes', 'Suporte Técnico', 'CFTV', 'Manutenção de Computadores', 'Banda Larga'],
   },
   {
     type: 'education',
-    title: 'Graduação em Analise e Desenvolvimento de Sistemas',
+    title: 'Graduação em Análise e Desenvolvimento de Sistemas',
     company: 'Cruzeiro do Sul',
     period: '2022 - 2024',
-    description: 'Falta add',
+    description: 'Formação abrangente em desenvolvimento de software e sistemas, com ênfase em:\n\n• Programação Web e Mobile\n• Banco de Dados e Modelagem\n• Engenharia de Software\n• Desenvolvimento Full Stack\n• Arquitetura de Computadores e Redes',
   },
 ];
 
