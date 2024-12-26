@@ -1,5 +1,9 @@
+import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic'; // Isso força a rota a ser dinâmica
+
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
+  const searchParams = request.nextUrl.searchParams;
   const action = searchParams.get('action');
   const query = searchParams.get('query');
 
@@ -16,13 +20,13 @@ export async function GET(request) {
       fii.toLowerCase().includes(query?.toLowerCase() || '')
     );
 
-    return Response.json(filteredFiis);
+    return NextResponse.json(filteredFiis);
   }
 
   if (action === 'quote') {
     const ticker = searchParams.get('ticker');
     if (!ticker) {
-      return Response.json({ error: 'Ticker não fornecido' }, { status: 400 });
+      return NextResponse.json({ error: 'Ticker não fornecido' }, { status: 400 });
     }
 
     try {
@@ -35,7 +39,7 @@ export async function GET(request) {
       // Validar se os dados necessários existem
       if (!data.chart?.result?.[0]?.meta) {
         console.error('Dados inválidos recebidos da API:', data);
-        return Response.json({ error: 'Dados do FII indisponíveis' }, { status: 404 });
+        return NextResponse.json({ error: 'Dados do FII indisponíveis' }, { status: 404 });
       }
 
       const meta = data.chart.result[0].meta;
@@ -56,11 +60,11 @@ export async function GET(request) {
       // Validar se os valores são números válidos
       if (isNaN(cotacaoAtual) || isNaN(dividendYield)) {
         console.error('Valores inválidos:', { cotacaoAtual, dividendYield });
-        return Response.json({ error: 'Dados inválidos recebidos da API' }, { status: 500 });
+        return NextResponse.json({ error: 'Dados inválidos recebidos da API' }, { status: 500 });
       }
 
       // Retornar apenas os dados necessários já validados
-      return Response.json({
+      return NextResponse.json({
         success: true,
         data: {
           cotacaoAtual,
@@ -70,14 +74,14 @@ export async function GET(request) {
 
     } catch (error) {
       console.error('Erro ao buscar dados:', error);
-      return Response.json(
+      return NextResponse.json(
         { error: 'Erro ao buscar dados do FII' },
         { status: 500 }
       );
     }
   }
 
-  return Response.json(
+  return NextResponse.json(
     { error: 'Ação não especificada' },
     { status: 400 }
   );
