@@ -13,7 +13,7 @@ const highlights = [
   {
     icon: Briefcase,
     title: 'Formação Tech',
-    description: 'Graduando em ADS com projetos práticos e experiência em TI',
+    description: 'Graduado em ADS com projetos práticos e experiência em TI',
   },
   {
     icon: Mail,
