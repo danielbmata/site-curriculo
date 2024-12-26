@@ -4,17 +4,28 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA_lXpYwHD2ex5VTAlhXsYp4JZYPNM6qGA",
-    authDomain: "site-curriculo-51e44.firebaseapp.com",
-    projectId: "site-curriculo-51e44",
-    storageBucket: "site-curriculo-51e44.firebasestorage.app",
-    messagingSenderId: "709249645461",
-    appId: "1:709249645461:web:14c0fe904a35b05987549c",
-    measurementId: "G-FR6EW8NJRV"
-  };
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+};
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+// Inicializa o Firebase apenas se ainda não estiver inicializado
+let app;
+let auth;
+let db;
+
+try {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+} catch (error) {
+  if (!/already exists/.test(error.message)) {
+    console.error('Erro ao inicializar Firebase:', error.stack);
+  }
+}
 
 export { auth, db };
