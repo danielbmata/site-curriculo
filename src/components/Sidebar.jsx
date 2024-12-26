@@ -127,10 +127,7 @@ export function Sidebar() {
               </button>
             </>
           ) : (
-            <>
-              <NavLink href="/login" icon={User2}>Login</NavLink>
-              <NavLink href="/register" icon={User2}>Registrar</NavLink>
-            </>
+            <NavLink href="/login" icon={User2}>Login</NavLink>
           )}
         </nav>
 
