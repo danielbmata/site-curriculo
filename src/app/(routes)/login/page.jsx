@@ -16,7 +16,7 @@ export default function Login() {
         e.preventDefault();
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            router.push('/ferramentas');
+            router.push('/inicio');
         } catch (error) {
             let mensagem = '';
             switch (error.code) {
