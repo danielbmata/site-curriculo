@@ -8,17 +8,17 @@ const highlights = [
   {
     icon: Code2,
     title: 'Desenvolvedor Full Stack',
-    description: 'Especializado em criar experiências web modernas e intuitivas',
+    description: 'Desenvolvendo aplicações modernas com React, Next.js e Node.js',
   },
   {
     icon: Briefcase,
-    title: '+2 Anos de Experiência',
-    description: 'Trabalhando com as tecnologias mais recentes do mercado',
+    title: 'Formação Tech',
+    description: 'Graduando em ADS com projetos práticos e experiência em TI',
   },
   {
     icon: Mail,
-    title: 'Disponível para Projetos',
-    description: 'Aberto a novos desafios e oportunidades de colaboração',
+    title: 'Pronto para Desenvolver',
+    description: 'Em busca da primeira oportunidade como desenvolvedor',
   },
   // o highlights é uma função que retorna um array de objetos, cada objeto tem um icon, title e description
 ];
