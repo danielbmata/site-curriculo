@@ -7,12 +7,20 @@ import { Github, ExternalLink, Star } from 'lucide-react';
 // To usando featured: true pros projetos que são mais legais
 const projects = [
   {
+    title: 'Portfólio Pessoal',
+    description: 'Site pessoal desenvolvido com tecnologias modernas, apresentando minha jornada profissional e projetos. Interface responsiva e moderna com animações suaves.',
+    tags: ['React', 'Next.js', 'Tailwind CSS', 'Firebase'],
+    github: 'https://github.com/danielbmata/site-curriculo',
+    demo: '/',
+    featured: true,
+  },
+  {
     title: 'Calculadora do Número Mágico - FIIs',
     description: 'Uma ferramenta para calcular quantas cotas de um FII você precisa para atingir sua renda passiva desejada.',
-    tags: ['React', 'Next.js', 'Tailwind CSS'], // Tecnologias que aprendi fazendo o projeto
+    tags: ['React', 'Next.js', 'Tailwind CSS'],
     github: 'https://github.com/danielbmata/calculadora-fii',
     demo: '/projetos/calculadora-fii',
-    featured: true, // Meu primeiro projeto "sério" com React!
+    featured: true,
   },
   // ... outros projetos que vou adicionar depois
 ];

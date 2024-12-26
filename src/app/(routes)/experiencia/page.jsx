@@ -20,13 +20,6 @@ const experiences = [
     description: 'Responsável pela implementação e manutenção de infraestrutura de rede, com foco em:\n\n• Manutenção preventiva e corretiva de computadores\n• Instalação e configuração de internet banda larga para clientes residenciais e empresariais\n• Implementação e manutenção de sistemas de segurança CFTV\n\nContribuí diretamente para a expansão da base de clientes e melhoria da qualidade do serviço prestado.',
     skills: ['Instalação de Redes', 'Suporte Técnico', 'CFTV', 'Manutenção de Computadores', 'Banda Larga'],
   },
-  {
-    type: 'education',
-    title: 'Graduação em Análise e Desenvolvimento de Sistemas',
-    company: 'Cruzeiro do Sul',
-    period: '2022 - 2024',
-    description: 'Formação abrangente em desenvolvimento de software e sistemas, com ênfase em:\n\n• Programação Web e Mobile\n• Banco de Dados e Modelagem\n• Engenharia de Software\n• Desenvolvimento Full Stack\n• Arquitetura de Computadores e Redes',
-  },
 ];
 
 export default function Experiencia() {
