@@ -22,6 +22,14 @@ const projects = [
     demo: '/projetos/calculadora-fii',
     featured: true,
   },
+  {
+    title: 'Meu Celular',
+    description: 'Sistema completo para gestão de assistências técnicas de smartphones com ferramentas modernas e interface intuitiva',
+    tags: ['React', 'Next.js', 'Tailwind CSS', 'PostgreSQL'],
+    github: 'https://github.com/danielbmata/',
+    demo: 'https://meucelular.vercel.app/',
+    featured: true,
+  },
   // ... outros projetos que vou adicionar depois
 ];
 

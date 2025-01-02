@@ -18,7 +18,7 @@ const highlights = [
   {
     icon: Mail,
     title: 'Pronto para Desenvolver',
-    description: 'Em busca da primeira oportunidade como desenvolvedor',
+    description: 'Em busca de uma oportunidade como desenvolvedor',
   },
   // o highlights é uma função que retorna um array de objetos, cada objeto tem um icon, title e description
 ];
