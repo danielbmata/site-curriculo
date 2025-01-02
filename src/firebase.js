@@ -1,5 +1,6 @@
-// src/firebase.js
-import { initializeApp } from 'firebase/app';
+"use client"
+
+import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
@@ -14,18 +15,8 @@ const firebaseConfig = {
 };
 
 // Inicializa o Firebase apenas se ainda não estiver inicializado
-let app;
-let auth;
-let db;
-
-try {
-  app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  db = getFirestore(app);
-} catch (error) {
-  if (!/already exists/.test(error.message)) {
-    console.error('Erro ao inicializar Firebase:', error.stack);
-  }
-}
+let app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+let auth = getAuth(app);
+let db = getFirestore(app);
 
 export { auth, db };
