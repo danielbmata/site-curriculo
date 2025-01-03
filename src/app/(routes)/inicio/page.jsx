@@ -20,7 +20,6 @@ const highlights = [
     title: 'Pronto para Desenvolver',
     description: 'Em busca de uma oportunidade como desenvolvedor',
   },
-  // o highlights é uma função que retorna um array de objetos, cada objeto tem um icon, title e description
 ];
 
 export default function Inicio() {
@@ -29,7 +28,7 @@ export default function Inicio() {
   return (
     <div className="min-h-screen">
       {/* Seção principal, tentei fazer algo bem chamativo */}
-      <div className="relative h-[40vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <div className="relative h-[40vh] min-h-[400px] flex items-center justify-center overflow-hidden rounded-3xl">
         {/* Esse background com gradiente deu trabalho mas valeu a pena */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 animate-gradient-x" />
         
@@ -62,17 +61,17 @@ export default function Inicio() {
                 href="https://github.com/danielbmata"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-xl glass-effect hover:scale-105 transition-all duration-300"
+                className="p-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 hover:scale-105 transition-all duration-300 group"
               >
-                <Github className="w-5 h-5" />
+                <Github className="w-5 h-5 text-white group-hover:text-blue-400 transition-colors" />
               </a>
               <a
                 href="https://linkedin.com/in/danielbmata"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-xl glass-effect hover:scale-105 transition-all duration-300"
+                className="p-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 hover:scale-105 transition-all duration-300 group"
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-5 h-5 text-white group-hover:text-blue-400 transition-colors" />
               </a>
             </div>
           </div>
