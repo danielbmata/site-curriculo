@@ -114,7 +114,7 @@ function ProfileContent() {
                   type="email"
                   value={profileData.email}
                   disabled
-                  className="w-full px-4 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700 opacity-50 cursor-not-allowed"
+                  className="w-full px-4 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700 opacity-50 cursor-not-allowed text-zinc-400"
                 />
               </div>
 
@@ -124,7 +124,7 @@ function ProfileContent() {
                   type="text"
                   value={profileData.name}
                   onChange={(e) => setProfileData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-4 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-300"
+                  className="w-full px-4 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-300 text-zinc-100 placeholder-zinc-500"
                   placeholder="Seu nome completo"
                 />
               </div>
@@ -135,7 +135,7 @@ function ProfileContent() {
                   type="text"
                   value={profileData.username}
                   onChange={(e) => setProfileData(prev => ({ ...prev, username: e.target.value }))}
-                  className="w-full px-4 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-300"
+                  className="w-full px-4 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-300 text-zinc-100 placeholder-zinc-500"
                   placeholder="@seususername"
                 />
               </div>
@@ -146,7 +146,7 @@ function ProfileContent() {
                   type="number"
                   value={profileData.age}
                   onChange={(e) => setProfileData(prev => ({ ...prev, age: e.target.value }))}
-                  className="w-full px-4 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-300"
+                  className="w-full px-4 py-2 rounded-xl bg-zinc-800/50 border border-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-300 text-zinc-100 placeholder-zinc-500"
                   placeholder="Sua idade"
                 />
               </div>
