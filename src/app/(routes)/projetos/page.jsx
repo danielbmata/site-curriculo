@@ -77,7 +77,11 @@ export default function Projetos() {
               onMouseLeave={() => setHoveredProject(null)}
             >
               {/* Efeito de hover que aprendi vendo o site da Vercel */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className={`
+                absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 
+                transition-opacity duration-300
+                ${hoveredProject === index ? 'opacity-100' : 'opacity-0'}
+              `} />
               
               {/* Estrela pros projetos featured - achei legal destacar os melhores */}
               {project.featured && (
@@ -87,7 +91,7 @@ export default function Projetos() {
               )}
 
               {/* Resto do conteúdo do card */}
-              <div className="relative">
+              <div className="relative z-10">
                 <Link 
                   href={`/projetos/${project.slug}`}
                   className="inline-block text-xl font-semibold text-zinc-100 mb-2 hover:text-blue-400 transition-colors"
