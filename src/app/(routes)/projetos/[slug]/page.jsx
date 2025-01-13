@@ -142,7 +142,7 @@ const projects = [
     title: 'Mensagem de Amor - Aniversário Especial',
     description: 'Uma aplicação web romântica desenvolvida especialmente para o aniversário da minha namorada, com uma mensagem de amor e uma surpresa para o dia seguinte, quando comemoramos também o aniversário do nosso namoro.',
     tags: ['Node.js', 'Express', 'HTML5', 'CSS3', 'JavaScript'],
-    github: 'https://github.com/danielbmata/',
+    github: 'https://github.com/danielbmata/daniel-to-sabrina',
     demo: 'https://daniel-to-sabrina.vercel.app/',
     featured: true,
     slug: 'daniel-e-sabrina',
