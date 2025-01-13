@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Github, ExternalLink, Star } from 'lucide-react';
+import Link from 'next/link';
 
 // Array com meus projetos - depois vou adicionar mais quando terminar eles
 // To usando featured: true pros projetos que são mais legais
@@ -13,23 +14,36 @@ const projects = [
     github: 'https://github.com/danielbmata/site-curriculo',
     demo: '/',
     featured: true,
+    slug: 'portfolio-pessoal'
   },
   {
-    title: 'Calculadora do Número Mágico - FIIs',
-    description: 'Uma ferramenta para calcular quantas cotas de um FII você precisa para atingir sua renda passiva desejada.',
-    tags: ['React', 'Next.js', 'Tailwind CSS'],
-    github: 'https://github.com/danielbmata/calculadora-fii',
-    demo: '/projetos/calculadora-fii',
+    title: 'DarkNet',
+    description: 'Sistema completo de gestão financeira e de estoque com interface moderna, desenvolvido com Next.js, React, TypeScript e Firebase. Inclui autenticação, controle financeiro e gerenciamento de estoque. [Projeto Proprietário - Disponível para demonstração em entrevistas]',
+    tags: ['Next.js', 'React', 'TypeScript', 'Firebase', 'Tailwind CSS'],
+    demo: '#',
     featured: true,
+    isPrivate: true,
+    slug: 'darknet'
   },
   {
-    title: 'Meu Celular',
-    description: 'Sistema completo para gestão de assistências técnicas de smartphones com ferramentas modernas e interface intuitiva',
+    title: 'Meu Celular [Em Construção]',
+    description: 'Sistema completo para gestão de assistências técnicas de smartphones com ferramentas modernas e interface intuitiva. Projeto em desenvolvimento ativo, com novas funcionalidades sendo adicionadas.',
     tags: ['React', 'Next.js', 'Tailwind CSS', 'PostgreSQL'],
     github: 'https://github.com/danielbmata/',
-    demo: 'https://meucelular.vercel.app/',
+    demo: '#',
     featured: true,
+    inProgress: true,
+    slug: 'meu-celular'
   },
+  {
+    title: 'Mensagem de Amor - Aniversário Especial',
+    description: 'Uma aplicação web romântica desenvolvida especialmente para o aniversário da minha namorada, com uma mensagem de amor e uma surpresa para o dia seguinte, quando comemoramos também o aniversário do nosso namoro.',
+    tags: ['Node.js', 'Express', 'HTML5', 'CSS3', 'JavaScript'],
+    github: 'https://github.com/danielbmata/',
+    demo: 'https://daniel-to-sabrina.vercel.app/',
+    featured: true,
+    slug: 'daniel-e-sabrina'
+  }
   // ... outros projetos que vou adicionar depois
 ];
 
@@ -74,7 +88,12 @@ export default function Projetos() {
 
               {/* Resto do conteúdo do card */}
               <div className="relative">
-                <h3 className="text-xl font-semibold text-zinc-100 mb-2">{project.title}</h3>
+                <Link 
+                  href={`/projetos/${project.slug}`}
+                  className="inline-block text-xl font-semibold text-zinc-100 mb-2 hover:text-blue-400 transition-colors"
+                >
+                  {project.title}
+                </Link>
                 <p className="text-zinc-400 text-sm mb-4">{project.description}</p>
                 
                 {/* Tags das tecnologias - adoro esse estilo de badge */}
@@ -91,16 +110,18 @@ export default function Projetos() {
 
                 {/* Links - aprendi a usar target="_blank" com rel="noopener" por segurança */}
                 <div className="flex gap-4">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
-                  >
-                    <Github className="w-4 h-4" />
-                    GitHub
-                  </a>
-                  {project.demo && (
+                  {!project.isPrivate && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
+                    >
+                      <Github className="w-4 h-4" />
+                      GitHub
+                    </a>
+                  )}
+                  {project.demo && project.demo !== '#' && (
                     <a
                       href={project.demo}
                       className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
@@ -108,6 +129,18 @@ export default function Projetos() {
                       <ExternalLink className="w-4 h-4" />
                       Demo
                     </a>
+                  )}
+                  {project.isPrivate && (
+                    <span className="flex items-center gap-2 text-sm text-zinc-400">
+                      <ExternalLink className="w-4 h-4" />
+                      Demo disponível em entrevistas
+                    </span>
+                  )}
+                  {project.inProgress && (
+                    <span className="flex items-center gap-2 text-sm text-yellow-400">
+                      <ExternalLink className="w-4 h-4" />
+                      Em desenvolvimento
+                    </span>
                   )}
                 </div>
               </div>
